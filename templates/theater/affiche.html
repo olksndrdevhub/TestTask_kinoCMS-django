@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    a.active{
+        background-color: rgb(72, 180, 96)!important;
+    }
+</style>
+<div class="container col-11 mt-5">
+    <div class="row">
+        <div class="col-3">
+            <div class="list-group text-center" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Афіша</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Скоро в прокаті</a>
+            </div>
+            <div class="side_banner">
+                <p>side banner</p>
+            </div>
+        </div>
+        <div class="col-9 bg-dark pt-4 pb-4">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                    <div class="card-desk">
+                        {% for film in films %}
+                            <div class="card" style="width: 15rem;">
+                                {% if film.show_soon %}
+                                <span class="badge badge-warning text-center" style="font-size: 0.9em;">В прокаті з {{ film.show_soon_from_date|date:"D d" }}</span>
+                                {% else %}
+                                <span class="badge badge-info text-center" style="font-size: 0.9em;">Зараз в кіно</span>
+                                {% endif %}
+                                <img class="card-img-top" src="{{ film.poster.url }}" alt="no_photo">
+                                <div class="card-body">
+                                    <a href="{{ film.get_absolute_url }}" class="nav-link"><p class="card-title">{{ film.title }}</p></a>
+                                    <button class="btn btn-success" type="button">Купити квиток</button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                    <div class="card-desk">
+                        {% for film in films_soon %}
+                            <div class="card" style="width: 15rem;">
+                                {% if film.show_soon %}
+                                <span class="badge badge-warning text-center" style="font-size: 0.9em;">В прокаті з {{ film.show_soon_from_date|date:"D d" }}</span>
+                                {% endif %}
+                                <img class="card-img-top" src="{{ film.poster.url }}" alt="no_photo">
+                                <div class="card-body">
+                                    <a href="{{ film.get_absolute_url }}" class="nav-link"><p class="card-title">{{ film.title }}</p></a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

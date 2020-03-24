@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container col-10">
+    <div class="head_div">
+        <iframe width="1000" height="500" src="https://www.youtube.com/embed/ciXKVBxWOAE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="about_film">
+            <div>
+                <h2 class="text-left mt-2">{{ film.title }}</h2>
+                <div class="text-right">
+                    <a href="#" class="btn btn-primary from-control">Купити квиток</a>
+                </div><hr>
+                <p class="mt-2">Опис:<br> {{ film.description }}</p>
+                <p></p>
+            </div>
+        </div>
+    </div> 
+    <div class="seans_calendar">
+        <h4 class="text-center header-4">Розклад сеансів в кінотеатрах</h4>
+        <div class="column">
+            <div class="row">
+                <p class="m-3">Оберіть ваше місто:</p>
+                <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Київ</a>
+                    <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Львів</a>
+                    <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Харків</a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Дніпро</a>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                        <div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="list-group" id="list-tab_1" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="list-home-list_1" data-toggle="list" href="#list-home_1" role="tab" aria-controls="home">Всі</a>
+                                        <a class="list-group-item list-group-item-action" id="list-profile-list_1" data-toggle="list" href="#list-profile_1" role="tab" aria-controls="profile">3D</a>
+                                        <a class="list-group-item list-group-item-action" id="list-messages-list_1" data-toggle="list" href="#list-messages_1" role="tab" aria-controls="messages">2D</a>
+                                    </div>
+                                </div>
+                                <div class="col-11">
+                                    <div class="tab-content" id="nav-tabContent_1">
+                                        <div class="tab-pane fade show active mt-5" id="list-home_1" role="tabpanel" aria-labelledby="list-home-list_1">
+                                            <div class="session-desk">
+                                                {% for session in sessions %}
+                                                    <div class="list-group" style="width: 100%;">
+                                                        <div class="list-group-item">
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <p class="card-title m-0">{{ session.session.date|date:"d M" }}</p>
+                                                                {% if session.three_d %}
+                                                                    <span class="badge badge-success">3D</span>
+                                                                {% else %}
+                                                                    <span class="badge badge-primary">2D</span>
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="d-flex w-100 justify-content-between mt-2">
+                                                                <p class="card-text m-0">{{ session.session.time|date:"H:i" }}</p>
+                                                                <p class="m-0">Зал: {{ session.hall }}</p>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade  mt-5" id="list-profile_1" role="tabpanel" aria-labelledby="list-profile-list_1">
+                                            <div class="session-desk">
+                                                {% for session in sessions %}
+                                                    {% if session.three_d %}
+                                                    <div class="list-group" style="width: 100%;">
+                                                        <div class="list-group-item">
+                                                            <div class="d-flex w-100 justify-content-between">
+                                                                <p class="card-title m-0">{{ session.session.date|date:"d M" }}</p>
+                                                                <span class="badge badge-success"><big>3D</big></span>
+                                                            </div>
+                                                            <div class="d-flex w-100 justify-content-between mt-2">
+                                                                <p class="card-text m-0">{{ session.session.time|date:"H:i" }}</p>
+                                                                <p class="m-0">Зал: {{ session.hall }}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade mt-5" id="list-messages_1" role="tabpanel" aria-labelledby="list-messages-list_1">
+                                            <div class="session-desk">
+                                                {% for session in sessions %}
+                                                    {% if not session.three_d %}
+                                                        <div class="list-group" style="width: 100%;">
+                                                            <div class="list-group-item">
+                                                                <div class="d-flex w-100 justify-content-between">
+                                                                    <p class="card-title m-0">{{ session.session.date|date:"d M" }}</p>
+                                                                    <span class="badge badge-primary"><big>2D</big></span>
+                                                                </div>
+                                                                <div class="d-flex w-100 justify-content-between mt-2">
+                                                                    <p class="card-text m-0">{{ session.session.time|date:"H:i" }}</p>
+                                                                    <p class="m-0">Зал: {{ session.hall }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+                        <div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="list-group" id="list-tab_2" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="list-home-list_2" data-toggle="list" href="#list-home_2" role="tab" aria-controls="home">Всі</a>
+                                        <a class="list-group-item list-group-item-action" id="list-profile-list_2" data-toggle="list" href="#list-profile_2" role="tab" aria-controls="profile">3D</a>
+                                        <a class="list-group-item list-group-item-action" id="list-messages-list_2" data-toggle="list" href="#list-messages_2" role="tab" aria-controls="messages">2D</a>
+                                    </div>
+                                </div>
+                                <div class="col-11">
+                                    <div class="tab-content" id="nav-tabContent_2">
+                                        <div class="tab-pane fade show active" id="list-home_2" role="tabpanel" aria-labelledby="list-home-list_2">4</div>
+                                        <div class="tab-pane fade" id="list-profile_2" role="tabpanel" aria-labelledby="list-profile-list_2">5</div>
+                                        <div class="tab-pane fade" id="list-messages_2" role="tabpanel" aria-labelledby="list-messages-list_2">6</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+                        <div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="list-group" id="list-tab_3" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="list-home-list_3" data-toggle="list" href="#list-home_2" role="tab" aria-controls="home">Всі</a>
+                                        <a class="list-group-item list-group-item-action" id="list-profile-list_3" data-toggle="list" href="#list-profile_3" role="tab" aria-controls="profile">3D</a>
+                                        <a class="list-group-item list-group-item-action" id="list-messages-list_3" data-toggle="list" href="#list-messages_3" role="tab" aria-controls="messages">2D</a>
+                                    </div>
+                                </div>
+                                <div class="col-11">
+                                    <div class="tab-content" id="nav-tabContent_3">
+                                        <div class="tab-pane fade show active" id="list-home_3" role="tabpanel" aria-labelledby="list-home-list_3">7</div>
+                                        <div class="tab-pane fade" id="list-profile_3" role="tabpanel" aria-labelledby="list-profile-list_3">8</div>
+                                        <div class="tab-pane fade" id="list-messages_3" role="tabpanel" aria-labelledby="list-messages-list_3">9</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+                        <div>
+                            <div class="row">
+                                <div class="col-1">
+                                    <div class="list-group" id="list-tab_4" role="tablist">
+                                        <a class="list-group-item list-group-item-action active" id="list-home-list_4" data-toggle="list" href="#list-home_4" role="tab" aria-controls="home">Всі</a>
+                                        <a class="list-group-item list-group-item-action" id="list-profile-list_4" data-toggle="list" href="#list-profile_4" role="tab" aria-controls="profile">3D</a>
+                                        <a class="list-group-item list-group-item-action" id="list-messages-list_1" data-toggle="list" href="#list-messages_1" role="tab" aria-controls="messages">2D</a>
+                                    </div>
+                                </div>
+                                <div class="col-11">
+                                    <div class="tab-content" id="nav-tabContent_4">
+                                        <div class="tab-pane fade show active" id="list-home_4" role="tabpanel" aria-labelledby="list-home-list_4">10</div>
+                                        <div class="tab-pane fade" id="list-profile_4" role="tabpanel" aria-labelledby="list-profile-list_4">11</div>
+                                        <div class="tab-pane fade" id="list-messages_4" role="tabpanel" aria-labelledby="list-messages-list_4">12</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+{% endblock content %}
