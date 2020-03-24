@@ -44,7 +44,18 @@ class FilmGallery(models.Model):
     image = models.ImageField(upload_to='uploads/film/film-gallery', default='uploads/None/no-img.jpg')
     film = models.ForeignKey('Film', blank=True, null=True, on_delete=models.CASCADE)
 
-
+class FilmDescription(models.Model):
+    year = models.CharField(max_length=20)
+    genre = models.CharField(max_length=100)
+    country = models.CharField(max_length=150)
+    director = models.CharField(max_length=150)
+    screenwriter = models.CharField(max_length=150)
+    producer = models.CharField(max_length=150)
+    composer = models.CharField(max_length=150)
+    budget = models.IntegerField()
+    duration = models.CharField(max_length=150)
+    age = models.CharField(max_length=10)
+    film = models.ForeignKey(Film, on_delete=models.CASCADE)
 
 
 

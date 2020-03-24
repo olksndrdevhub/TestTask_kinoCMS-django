@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.utils.timezone import now, pytz, timedelta
 from django.conf import settings
 
-from .models import Film, FilmGallery, News, FilmShowSession
+from .models import Film, FilmGallery, News, FilmShowSession, FilmDescription
 
 def index(request):
     user_timezone = pytz.timezone(settings.TIME_ZONE)
@@ -24,10 +24,10 @@ def film_detail(request, slug):
     film = Film.objects.get(slug=slug)  
     curentdatetime = now().date()
     sessions = FilmShowSession.objects.filter(film__slug=slug)
-    
-    print(dir(sessions.first().session))
+    description = FilmDescription.objects.filter(film__slug=slug).first()
 
     context = {
+        'description': description,
         'sessions': sessions,
         'film': Film.objects.get(slug=slug),
         'gallery': FilmGallery.objects.filter(film__slug=slug),
