@@ -51,6 +51,7 @@ class FilmDescription(models.Model):
     director = models.CharField(max_length=150)
     screenwriter = models.CharField(max_length=150)
     producer = models.CharField(max_length=150)
+    operator = models.CharField(max_length=150)
     composer = models.CharField(max_length=150)
     budget = models.IntegerField()
     duration = models.CharField(max_length=150)
