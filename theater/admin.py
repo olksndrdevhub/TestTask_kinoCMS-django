@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from .models import Film, News, FilmGallery, FilmShowSession, FilmDescription
+from .models import Film, News, FilmImages, FilmShowSession, FilmDescription
 
 class ImagesInline(admin.TabularInline):
-  model = FilmGallery
+  model = FilmImages
   extra = 0
 
 class SessionsInline(admin.TabularInline):

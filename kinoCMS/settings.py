@@ -31,7 +31,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'theater',
+    
+    'jet.dashboard',
+    'jet',
+    
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    
+    'theater',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -159,3 +163,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL ='/'
+
+# ACCOUNT_FORMS = {
+# 'signup': 'kinoCMS.forms.CustomSignupForm',
+# 'login': 'kinoCMS.forms.CustomLoginForm'
+# }

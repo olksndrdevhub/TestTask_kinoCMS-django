@@ -40,7 +40,7 @@ class FilmShowSession(models.Model):
         return u'%s' % self.since.strftime('%Y-%m-%d %H:%M')
 
 
-class FilmGallery(models.Model):
+class FilmImages(models.Model):
     image = models.ImageField(upload_to='uploads/film/film-gallery', default='uploads/None/no-img.jpg')
     film = models.ForeignKey('Film', blank=True, null=True, on_delete=models.CASCADE)
 
