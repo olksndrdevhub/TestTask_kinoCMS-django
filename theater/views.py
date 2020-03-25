@@ -37,3 +37,11 @@ def film_detail(request, slug):
 
 
 
+def news(request):
+    context = {
+        'news': News.objects.all(),
+    }
+    return render(request, 'theater/news.html', context)
+
+def news_detail(request, slug):
+    pass

@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+<!-- style="height: 40vh; background-position: center; background-image: url({% static 'img/novyny.png' %});" -->
+{% block content %}
+    <div class="container col-10">
+        <div class="header-img" >
+            <img src="{% static 'img/novyny.png' %}" alt="" class="col-12">
+        </div>
+        <div class="main-block row">
+            <div class="news-block col-9">
+                <h4 class="header-4 text-center">Новини</h4>
+                <div class="news-desk col-12">
+                    {% for item in news %}
+                        <a href="{{ item.get_absolute_url }}" class="nav-link"><div class="card" style="height: 450px; width: 300px;">
+                            <div class="badge-div text-center">
+                                <span class="badge badge-info m-0"><big>{{ item.date|date:"d M Y H:i" }}</big></span>
+                                <span class="badge badge-primary m-0"><big>Guliver</big></span>
+                            </div>
+                            <img class="card-img-top" src="{{ item.image.url }}" alt="">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ item.title }}</h5>
+                                <p class="card-text">{{ item.get_short_body }}...</p>
+                            </div>
+                        </div></a>
+                    {% endfor %}
+                </div>
+                <nav aria-label="Page navigation example" class="mt-3">
+                    <ul class="pagination justify-content-center">
+                      <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                      </li>
+                      <li class="page-item"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                      </li>
+                    </ul>
+                  </nav>
+            </div>
+            <div class="right-side-block col m-5" style="height: 500px; background-color: burlywood;">left-side-baner</div>
+        </div>
+    </div>
+    
+{% endblock content %}

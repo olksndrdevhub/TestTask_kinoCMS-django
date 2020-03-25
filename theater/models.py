@@ -12,7 +12,7 @@ class Film(models.Model):
     description = models.CharField(max_length=500)
     slug = models.SlugField(max_length=150, unique=True)
     poster = models.ImageField(upload_to='uploads/film/film-poster', default='uploads/None/no-img.jpg')
-
+    trailer_youtube_link = models.CharField(null=True, blank=True, max_length=400)
     show_today = models.BooleanField(default=False)
     show_soon = models.BooleanField(default=False)
     show_soon_from_date = models.DateField(null=True, blank=True)
@@ -65,6 +65,7 @@ class News(models.Model):
     body = models.CharField(max_length=10000)
     image = models.ImageField(upload_to='uploads/news/', default = 'uploads/None/no-img.jpg')
     slug = models.SlugField(unique=True, max_length=250, null=True)
+    date = models.DateTimeField(verbose_name='Дата додавання новини', auto_now=True, blank=True, null=True)
     
 
     def __str__(self):
@@ -72,3 +73,9 @@ class News(models.Model):
 
     class Meta:
         verbose_name_plural = "Новини"
+
+    def get_short_body(self):
+        return self.body[0:100]
+    
+    def get_absolute_url(self):
+        return reverse('theater:news_detail', kwargs={'slug': self.slug})
